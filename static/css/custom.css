@@ -1,0 +1,131 @@
+h1, h3, p {
+	text-align: center;
+}
+h1 {
+  font-size: 3em;
+}
+
+.top-buffer {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.margin-left-neg {
+  position: fixed;
+  left: 0%;
+}
+
+
+/* 以下三个是图片选项 */
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
+label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:5px solid #FA3;
+}
+label > input:checked + img + label {
+  display: block;
+}
+.option_value{
+  display: none;
+  text-align: center;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+/* 以下两个是nav居中 */
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+}
+.nav li {
+  text-align: center;
+}
+
+.float-left {
+	float: left;
+}
+.float-right {
+	float: right;
+}
+
+/*#tab_contents {
+	min-width: 800px;
+}*/
+
+.notification {
+/*  left: 25%;
+	top: 0px;
+	/*width: 25%;*/*/
+	height: 50px;
+}
+
+/* waiting */
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+.thumbnail > img {
+  height: 200px;
+  width: auto;
+}
+
+.disable-button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+a {
+  cursor: pointer;
+}
+
+#opened-dropdown {
+  background-color: #ffffff;
+  cursor: default;
+}
+
+.clear-both {
+  clear: both;
+}
+
+#app3_show:before {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+#app_multimodal_search_zh_show:before {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.bar {
+    height: 18px;
+    background: green;
+}

@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>IIUC</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/jquery.fileupload.css" rel="stylesheet">
+      <link href="css/custom.css" rel="stylesheet">
+      <link href="css/navbar-fixed-side.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main content -->
+        <div class="col-sm-9 col-lg-10">
+          <!-- notifications -->
+          <div>
+            <div class="alert alert-success notification" id="success-alert" style="display: none;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <span>Success.</span>
+            </div>
+            <div class="alert alert-info notification" id="info-alert" style="display: none;">
+              <span class="glyphicon glyphicon-refresh spinning"></span><span id="info_msg"></span>
+            </div>
+            <div class="alert alert-warning notification" id="warning-alert" style="display: none;">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <span>Warning.</span>
+            </div>
+          </div>
+          <!-- style app -->
+          <div class="" id="app_style">
+            <div class="row">
+              <div class="col-sm-2 col-sm-offset-6 col-lg-3 col-lg-offset-7 top-buffer panel panel-default">
+                <div class="panel-body">图像风格变换。</div>
+              </div>
+            </div>
+            <!-- style 风格备选 -->
+            <div class="row top-buffer">
+            <div class="col-sm-offset-1 col-lg-offset-2">
+              风格：
+              <label class="checkbox-inline">
+                <input type="radio" name="style_option" value="la_muse"  checked />
+                <img src="images/styles/la_muse.jpg" class="img-rounded" width="80" height="80" />
+                <label class="option_value">谬斯</label>
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="style_option" value="the_scream" />
+                <img src="images/styles/the_scream.jpg" class="img-rounded" width="80" height="80"/>
+                <label class="option_value">尖叫</label>
+              </label>
+            </div>
+            </div>
+            <!-- end style 风格备选 -->
+            <!-- style 搜索框 -->
+            <div id="upload" class="top-buffer">
+              <div class="col-sm-offset-1 col-sm-8 col-lg-offset-2 col-lg-8 input-group">
+                <div class="input-group-btn">
+                <span class="btn btn-success fileinput-button">
+                  <span>上传</span>
+                    <input type="file" name="img_file" accept="image/png,image/bmp,image/jpg,image/jpeg,image/gif" id="upload_image">
+                  </span>
+                </div>
+              </div>
+              <div id="progress">
+                  <div class="bar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <!-- end style 搜索框 -->
+            <!-- style 例子 -->
+            <!--<div class="col-sm-offset-1 col-lg-offset-1" id="app1_demo">-->
+              <!--例子:-->
+            <!--</div>-->
+            <!-- end style 例子-->
+            <!-- style 结果展示 -->
+            <div class="top-buffer" id="show">
+              <!--<p class="page-header">渲染结果</p>-->
+              <div class="float-left">
+                <p>原图</p>
+                <img class="img-rounded" width="300px" id="ori_img" src="#"/>
+              </div>
+              <div class="float-right">
+                <p>结果图</p>
+                <img class="img-rounded" width="300px" id="styled_img" src="#"/>
+              </div>
+            </div>
+            <!-- end style 结果展示 -->
+            <div>
+                <input id="slider" type="range" min="0" max="100" value="100" step="1"/>
+                <span id="range">100</span>
+                <canvas id="style_show"></canvas>
+            </div>
+          </div>
+          <!-- end style app -->
+          </div>
+        </div>
+      </div>
+
+    <script type="text/javascript" src="js/jquery.js" ></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
