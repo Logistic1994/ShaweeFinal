@@ -57,6 +57,7 @@ class Model(threading.Thread):
                     # contains (order_id, order_type, [img_path, save_path])
                     req_obj = self.input_queue.get_nowait()
                 except Queue.Empty:
+                    sleep(0.5) 
                     continue
                 if req_obj['order'] == Order.Terminate:
                     break

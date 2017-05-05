@@ -6,6 +6,7 @@ import tornado.web
 import tornado.gen
 import json
 import os
+import time
 from algo.model_manager import ModelManager
 from util.file_manager import FileManager
 from algo.constants import RetCode
@@ -72,6 +73,7 @@ class StyleHandler(tornado.web.RequestHandler):
         while True:
             ret = model_manager.check(order_id)
             if not ret:
+                time.sleep(0.5)
                 continue
             logger.info(str(ret))
             return ret

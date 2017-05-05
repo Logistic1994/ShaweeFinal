@@ -5,6 +5,7 @@ from model import Model
 import threading
 from constants import *
 import logging
+import time
 from util.singleton import singleton
 logger = logging.getLogger(__name__)
 
@@ -60,6 +61,7 @@ class ModelManager(threading.Thread):
             try:
                 order_id, ret_code, save_path, style_duration = self.output_queue.get_nowait()
             except Queue.Empty:
+                time.sleep(0.5)
                 continue
             self.outputs[order_id] = (ret_code, save_path, style_duration)
 

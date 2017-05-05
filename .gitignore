@@ -1,3 +1,4 @@
 .idea
-
+*.pyc
 static/images/upload_process/
+
