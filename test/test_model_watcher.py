@@ -1,13 +1,15 @@
 # -*- encoding: utf-8 -*-
+import json
 import logging.config
-import threading
+import time
 
 from algo.model_manager import ModelManager
+from algo.model_watcher import ModelWatcher
 
 logging.config.fileConfig('../logging.ini', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
-meta_infos = [
+meta_infos_1 = [
     {
         "name": "la_muse",
         "chinese_name": "谬斯",
@@ -19,7 +21,10 @@ meta_infos = [
         "tf_gpu_id": 0,
         "inst_num": 1,
         "meta_image": "../static/images/la_muse.jpg"
-    },
+    }
+]
+
+meta_infos_2 = [
     {
         "name": "the_scream",
         "chinese_name": "尖叫",
@@ -33,39 +38,43 @@ meta_infos = [
         "meta_image": "../static/images/the_scream.jpg"
     }
 ]
+
+with open('/tmp/models.json', 'w') as f:
+    json.dump(meta_infos_1, f)
+
 model_manager = ModelManager()
-model_manager.load_models(meta_infos)
+model_manager.load_models(meta_infos_1)
 model_manager.start()
 
-model_manager2 = ModelManager()  # ModelManager is Singleton
+model_watcher = ModelWatcher('/tmp/models.json')
+model_watcher.start_watch()
 
+time.sleep(2)
+# 扩容测试
+meta_infos_1[0]['inst_num'] = 2
+with open('/tmp/models.json', 'w') as f:
+    json.dump(meta_infos_1, f)
 
-def thread_fuc(index):
-    global model_manager2
-    ii = index % 2
-    names = ["la_muse", "the_scream"]
-    flag, order_id = model_manager2.eval(names[ii],
-                                         "../static/images/examples/chicago.jpg",
-                                         "../static/images/examples/{}_{}.jpg".format(names[ii], index))
-    logger.info('{}, {}'.format(flag, order_id))
-    if flag:
-        while True:
-            ret = model_manager2.check(order_id)
-            if not ret:
-                continue
-            else:
-                logger.info(str(ret))
-                break
+time.sleep(2)
 
+# 缩容测试
+meta_infos_1[0]['inst_num'] = 1
+with open('/tmp/models.json', 'w') as f:
+    json.dump(meta_infos_1, f)
 
-threads = []
-for i in range(10):
-    t = threading.Thread(target=thread_fuc, args=(i,))
-    threads.append(t)
-    t.start()
+time.sleep(2)
 
-logger.info(str(model_manager2.get_all_queue_length()))
+# 新增模型测试
+meta_infos_1.append(meta_infos_2[0])
+with open('/tmp/models.json', 'w') as f:
+    json.dump(meta_infos_1, f)
 
-for i in range(10):
-    threads[i].join()
-model_manager2.terminate()
+time.sleep(2)
+# 彻底删除模型
+meta_infos_1.pop(1)
+with open('/tmp/models.json', 'w') as f:
+    json.dump(meta_infos_1, f)
+
+time.sleep(2)
+model_watcher.stop_watch()
+model_manager.terminate()

@@ -8,6 +8,7 @@
     "tf_output_name": "add_37:0",
     "tf_use_gpu": false,
     "tf_gpu_id": 0,
+    "inst_num": 2,
     "meta_image": "static/images/la_muse.jpg"
   },
   {
@@ -19,6 +20,7 @@
     "tf_output_name": "add_37:0",
     "tf_use_gpu": false,
     "tf_gpu_id": 0,
+    "inst_num": 1,
     "meta_image": "static/images/the_scream.jpg"
   }
 ]

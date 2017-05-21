@@ -5,13 +5,11 @@ from enum import Enum
 
 class Order(Enum):
     """
-    任务需求
+    任务需求，后面的id既表示order的种类，又表示任务的优先级，越小优先级越高
     Style：进行风格化任务
-    Terminate：消灭这个风格线程
     """
-    Unknown = -1
-    Style = 1
-    Terminate = 0
+    Unknown = 1000
+    Style = 100
 
 
 class RetCode(Enum):

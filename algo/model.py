@@ -19,12 +19,13 @@ class Model(threading.Thread):
     """
     风格模型处理线程，一个model load一个风格模型，对应一个线程服务
     """
-    def __init__(self, meta_info, input_queue, output_queue):
+    def __init__(self, meta_info, input_queue, output_queue, index):
         """
         对象构建函数
         :param meta_info: json格式的模型信息 
-        :param input_queue: 输入队列
+        :param input_queue: 输入队列，输入队列是优先级队列
         :param output_queue: 输出队列
+        :param index: 处理相同的风格列表中的第几个？
         """
         threading.Thread.__init__(self)
         for key in ['name', 'tf_model_path', 'tf_input_name',
@@ -35,6 +36,7 @@ class Model(threading.Thread):
         self.input_name = meta_info['tf_input_name']
         self.input_size = meta_info['tf_input_size']
         self.output_name = meta_info['tf_output_name']
+        self.index = index
         with gfile.FastGFile(meta_info["tf_model_path"], 'rb') as f:
             graph_def = tf.GraphDef()
             graph_def.ParseFromString(f.read())
@@ -47,6 +49,10 @@ class Model(threading.Thread):
         self.use_gpu = meta_info['tf_use_gpu']
         if self.use_gpu:
             self.gpu_id = meta_info['tf_gpu_id']
+        self.stop = False
+
+    def terminate(self):
+        self.stop = True
 
     def run(self):
         if not self.use_gpu:
@@ -63,16 +69,14 @@ class Model(threading.Thread):
             tf.import_graph_def(self.graph_def, name='')
             formula = sess.graph.get_tensor_by_name(self.output_name)
 
-            while True:
+            while not self.stop:
                 try:
                     # get request object
                     # contains (order_id, order_type, [img_path, save_path])
-                    req_obj = self.input_queue.get_nowait()
+                    prior, req_obj = self.input_queue.get_nowait()
                 except Queue.Empty:
-                    time.sleep(0.5)
+                    time.sleep(1)
                     continue
-                if req_obj['order'] == Order.Terminate:
-                    break
                 if req_obj['order'] != Order.Style:
                     continue
                 if 'img_path' not in req_obj:

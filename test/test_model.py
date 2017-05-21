@@ -4,6 +4,7 @@ from __future__ import print_function
 
 import Queue
 import logging.config
+import time
 
 from algo.constants import *
 from algo.model import Model
@@ -33,18 +34,28 @@ meta_info = {
     "meta_image": "../static/images/the_scream.jpg"
 }
 
-input_queue = Queue.Queue()
+input_queue = Queue.PriorityQueue()
 output_queue = Queue.Queue()
 
 model = Model(meta_info, input_queue, output_queue)
 
 model.start()
 
-input_queue.put({'order': Order.Style,
-                 'order_id': 1,
-                 'img_path': '../static/images/love4.jpg',
-                 'save_path': '../static/images/loveMIMI.jpg'})
-input_queue.put({'order': Order.Terminate})
+# 理论上处理任务数量不定
+input_queue.put((Order.Style.value, {'order': Order.Style,
+                                     'order_id': 1,
+                                     'img_path': '../static/images/love4.jpg',
+                                     'save_path': '../static/images/loveMIMI.jpg'}))
+time.sleep(1)
+input_queue.put((Order.Style.value, {'order': Order.Style,
+                                     'order_id': 1,
+                                     'img_path': '../static/images/love4.jpg',
+                                     'save_path': '../static/images/loveMIMI.jpg'}))
+input_queue.put((Order.Style.value, {'order': Order.Style,
+                                     'order_id': 1,
+                                     'img_path': '../static/images/love4.jpg',
+                                     'save_path': '../static/images/loveMIMI.jpg'}))
+input_queue.put((Order.Terminate.value, {'order': Order.Terminate}))
 
 model.join()
 

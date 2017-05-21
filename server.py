@@ -8,6 +8,7 @@ import os
 import tornado.web
 
 from algo.model_manager import ModelManager
+from algo.model_watcher import ModelWatcher
 from handler.StyleHandler import StyleHandler
 from handler.UploadImageHandler import UploadImageHandler
 from util.file_manager import FileManager
@@ -28,6 +29,9 @@ with open("model.json") as f:
 model_manager = ModelManager()  # Singleton, 全局唯一
 model_manager.load_models(model_metas)
 model_manager.start()
+
+model_watcher = ModelWatcher(os.path.abspath("model.json"))
+model_watcher.start_watch()
 
 # Load file manager
 file_manager = FileManager()
@@ -60,5 +64,6 @@ if __name__ == "__main__":
         tornado.ioloop.IOLoop.instance().start()
     except:
         # 当接收到 ctrl+c 等结束进程信号时，会抛出一个异常
+        model_watcher.stop_watch()
         model_manager.terminate()
         tornado.ioloop.IOLoop.instance().stop()
