@@ -1,16 +1,22 @@
 # -*- coding: utf-8 -*-
 
 import Queue
-from model import Model
-import threading
-from constants import *
 import logging
+import threading
 import time
+
+from constants import *
+from model import Model
 from util.singleton import singleton
+
 logger = logging.getLogger(__name__)
+
 
 @singleton
 class ModelManager(threading.Thread):
+    """
+    模型管理
+    """
     def __init__(self):
         threading.Thread.__init__(self)
         self.inited = False
@@ -52,7 +58,7 @@ class ModelManager(threading.Thread):
         return self.input_queues[style_name].qsize()
 
     def get_all_queue_length(self):
-        return { style_name: self.input_queues[style_name].qsize() for style_name in self.input_queues.keys() }
+        return {style_name: self.input_queues[style_name].qsize() for style_name in self.input_queues.keys()}
 
     def run(self):
         for model in self.models.values():

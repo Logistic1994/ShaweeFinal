@@ -1,19 +1,31 @@
 # -*- coding: utf-8 -*-
 
-import tensorflow as tf
-from tensorflow.python.platform import gfile
-from PIL import Image
-import numpy as np
-import threading
 import Queue
-from constants import Order, RetCode
 import logging
+import threading
 import time
+
+import numpy as np
+import tensorflow as tf
+from PIL import Image
+from tensorflow.python.platform import gfile
+
+from constants import Order, RetCode
+
 logger = logging.getLogger(__name__)
 
 
 class Model(threading.Thread):
+    """
+    风格模型处理线程，一个model load一个风格模型，对应一个线程服务
+    """
     def __init__(self, meta_info, input_queue, output_queue):
+        """
+        对象构建函数
+        :param meta_info: json格式的模型信息 
+        :param input_queue: 输入队列
+        :param output_queue: 输出队列
+        """
         threading.Thread.__init__(self)
         for key in ['name', 'tf_model_path', 'tf_input_name',
                     'tf_input_size', 'tf_output_name', 'tf_use_gpu']:
@@ -57,7 +69,7 @@ class Model(threading.Thread):
                     # contains (order_id, order_type, [img_path, save_path])
                     req_obj = self.input_queue.get_nowait()
                 except Queue.Empty:
-                    time.sleep(0.5) 
+                    time.sleep(0.5)
                     continue
                 if req_obj['order'] == Order.Terminate:
                     break

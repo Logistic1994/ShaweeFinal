@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from singleton import singleton
-import threading
-import os
 import errno
 import logging
+import os
+
+from singleton import singleton
 
 logger = logging.getLogger(__name__)
 
@@ -41,8 +41,3 @@ class FileManager(object):
             return True
         except IOError as e:
             return False
-
-
-
-
-

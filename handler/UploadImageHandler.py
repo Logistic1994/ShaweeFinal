@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
-import tornado.web
+import io
 import json
 import logging
-from PIL import Image
-import io
 from hashlib import md5
+
+import tornado.web
+from PIL import Image
+
 from util.file_manager import FileManager
 
 logger = logging.getLogger(__name__)

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from algo.model import Model
+
 import Queue
-from algo.constants import *
-import logging
 import logging.config
+
+from algo.constants import *
+from algo.model import Model
 
 logging.config.fileConfig('../logging.ini', disable_existing_loggers=False)
 
@@ -53,5 +54,3 @@ while True:
         print(a)
     except Queue.Empty:
         break
-
-

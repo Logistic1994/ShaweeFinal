@@ -1,15 +1,17 @@
 #!/usr/bin/python
 # -*- encoding:utf-8 -*-
 
-import logging
-import tornado.web
-import tornado.gen
 import json
+import logging
 import os
 import time
+
+import tornado.gen
+import tornado.web
+
+from algo.constants import RetCode
 from algo.model_manager import ModelManager
 from util.file_manager import FileManager
-from algo.constants import RetCode
 
 logger = logging.getLogger(__name__)
 
