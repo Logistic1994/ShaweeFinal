@@ -30,16 +30,19 @@ class ModelManager(threading.Thread):
         self.order_id = 0
         self.outputs = {}
         self.unable_models = []
-        self.meta_infos = None
+        self.meta_infos = {}
 
     def get_model_metas(self):
-        return self.meta_infos
+        meta_infos = []
+        for key, value in self.meta_infos.items():
+            meta_infos.append(value)
+        return meta_infos
 
     def load_models(self, meta_infos):
-        self.meta_infos = meta_infos
         for meta_info in meta_infos:
             assert 'name' in meta_info
             name = meta_info['name']
+            self.meta_infos[name] = meta_info
             assert name not in self.models.keys()
             # 使用优先级队列，在需要更换模型的情况下，可以优先关闭现有线程，而不影响需要等待的任务
             input_queue = Queue.PriorityQueue()
@@ -128,6 +131,7 @@ class ModelManager(threading.Thread):
             model.start()
             self.models[name].append(model)
         self.input_queues[name] = input_queue
+        self.meta_infos[name] = meta_info
 
     def change_inst_num(self, meta_info, inst_num):
         assert 'name' in meta_info
@@ -148,13 +152,14 @@ class ModelManager(threading.Thread):
             for i in range(inst_num, old_num):
                 self.models[name][i].join()
             self.models[name] = self.models[name][0:inst_num]
+        self.meta_infos[name] = meta_info
 
     def forever_terminate(self, meta_info):
         assert 'name' in meta_info
         name = meta_info['name']
         assert name in self.models.keys()
         self.unable_models.append(name)
-        num = len(self.models.keys())
+        num = len(self.models[name])
         # 等待全部运行完毕
         while self.input_queues[name].qsize() != 0:
             pass
@@ -165,3 +170,4 @@ class ModelManager(threading.Thread):
         self.input_queues.pop(name)
         self.models.pop(name)
         self.unable_models.remove(name)
+        self.meta_infos.pop(name)
