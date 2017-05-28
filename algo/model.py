@@ -116,7 +116,7 @@ class Model(threading.Thread):
                     else:
                         width = target_width
                         height = int(float(orig_height) / orig_width * width)
-                    image = image.resize((width, height))
+                    image = image.resize((width, height), resample=Image.BILINEAR)
                     resized = True
 
                 # load into np array
@@ -127,10 +127,12 @@ class Model(threading.Thread):
                 # compute
                 preds = sess.run(formula, feed_dict={self.input_name: T})
                 S = preds[0, 0:height, 0:width, :].copy()
+                S[S<0] = 0
+                S[S>255] = 255
 
                 styled = Image.fromarray(np.uint8(S))
                 if resized:
-                    styled = styled.resize((orig_width, orig_height))
+                    styled = styled.resize((orig_width, orig_height), resample=Image.BILINEAR)
                 styled.save(save_path)
 
                 style_duration = time.time() - start
