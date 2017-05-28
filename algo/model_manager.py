@@ -30,8 +30,13 @@ class ModelManager(threading.Thread):
         self.order_id = 0
         self.outputs = {}
         self.unable_models = []
+        self.meta_infos = None
+
+    def get_model_metas(self):
+        return self.meta_infos
 
     def load_models(self, meta_infos):
+        self.meta_infos = meta_infos
         for meta_info in meta_infos:
             assert 'name' in meta_info
             name = meta_info['name']

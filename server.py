@@ -11,6 +11,7 @@ from algo.model_manager import ModelManager
 from algo.model_watcher import ModelWatcher
 from handler.StyleHandler import StyleHandler
 from handler.UploadImageHandler import UploadImageHandler
+from handler.StyleListHandler import StyleListHandler
 from util.file_manager import FileManager
 
 # Set global logger config
@@ -40,7 +41,7 @@ file_manager.init("static/images/upload_process")
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        self.render("static/index.html")
+        self.render("static/index2.html")
 
 
 class NocacheStaticFileHandler(tornado.web.StaticFileHandler):
@@ -54,6 +55,7 @@ app = tornado.web.Application([
     (r'/index(.*)', IndexHandler),
     (r'/upload_image', UploadImageHandler),
     (r'/style', StyleHandler),
+    (r'/style_list', StyleListHandler),
     (r'/(.*)', NocacheStaticFileHandler, {"path": static_path}),
 ])
 

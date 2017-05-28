@@ -33,7 +33,7 @@ label > input:checked + img + label {
   display: block;
 }
 .option_value{
-  display: none;
+  display: block;
   text-align: center;
 }
 .col-centered{

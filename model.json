@@ -8,8 +8,8 @@
     "tf_output_name": "add_37:0",
     "tf_use_gpu": false,
     "tf_gpu_id": 0,
-    "inst_num": 2,
-    "meta_image": "static/images/la_muse.jpg"
+    "inst_num": 1,
+    "meta_image": "static/images/styles/la_muse.jpg"
   },
   {
     "name": "the_scream",
@@ -21,6 +21,93 @@
     "tf_use_gpu": false,
     "tf_gpu_id": 0,
     "inst_num": 1,
-    "meta_image": "static/images/the_scream.jpg"
+    "meta_image": "static/images/styles/the_scream.jpg"
+  },
+  {
+    "name": "chinese_ink",
+    "chinese_name": "水墨画",
+    "tf_model_path": "models/chinese_ink.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/chinese_ink.jpg"
+  },
+  {
+    "name": "landscape",
+    "chinese_name": "松",
+    "tf_model_path": "models/landscape.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/landscape.jpg"
+  },
+  {
+    "name": "rain_princess",
+    "chinese_name": "雨中公主",
+    "tf_model_path": "models/rain_princess.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/rain_princess.jpg"
+  },
+  {
+    "name": "sketch",
+    "chinese_name": "素描",
+    "tf_model_path": "models/sketch.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/sketch.jpeg"
+  },
+  {
+    "name": "the_shipwreck_of_the_minotaur",
+    "chinese_name": "米诺陶的覆没",
+    "tf_model_path": "models/the_shipwreck_of_the_minotaur.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/the_shipwreck_of_the_minotaur.jpg"
+  },
+  {
+    "name": "udnie",
+    "chinese_name": "现代",
+    "tf_model_path": "models/udnie.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/udnie.jpg"
+  },
+  {
+    "name": "wave",
+    "chinese_name": "波浪",
+    "tf_model_path": "models/wave.pb",
+    "tf_input_name": "img_placeholder:0",
+    "tf_input_size": [1, 800, 800, 3],
+    "tf_output_name": "add_37:0",
+    "tf_use_gpu": false,
+    "tf_gpu_id": 0,
+    "inst_num": 1,
+    "meta_image": "static/images/styles/wave.jpg"
   }
 ]
+
+
+

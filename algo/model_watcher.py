@@ -32,6 +32,7 @@ class ModelWatcher(FileSystemEventHandler):
         self.observer.join()
 
     def on_modified(self, event):
+        logger.info(event.src_path)
         if event.src_path != self.meta_path:
             return
         logger.info("{} has been modified".format(self.meta_path))
